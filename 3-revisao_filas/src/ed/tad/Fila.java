@@ -98,5 +98,30 @@ public class Fila {
 		}
 		return ret;
 	}
+	public int encontrarPosicao(int valor) 
+	{
+	    int posicao = 1;
+	    boolean encontrado = false;
+	
+	    if (isEmpty()) {
+	        return -1;
+	    }
+	
+	    for (int i = inicio; i != fim; i = (i + 1) % tamanho) {
+	        if (fila[i] == valor) {
+	            encontrado = true;
+	            break;
+	        }
+	        posicao++;
+	    }
+	
+	    if (encontrado) {
+	        return posicao;
+	    } else {
+	        return -1;
+	    }
+	}
+
+
 
 }
