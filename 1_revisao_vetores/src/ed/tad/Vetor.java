@@ -1,4 +1,5 @@
 package ed.tad;
+import java.util.Random;
 
 public class Vetor {
 
@@ -164,6 +165,112 @@ public class Vetor {
 		for (int i = 0; i < tamanho; i++) {
 			this.dados[i] = this.vaga;
 		}
+	}
+	//1)C)
+	public void preencherAleatorio() {
+	    Random random = new Random();
+	    for (int i = 0; i < tamanho; i++) {
+	        int valor;
+	        if (repete == 1) {
+	            valor = random.nextInt(maximo - minimo + 1) + minimo;
+	        } else {
+	            boolean valorUnico = false;
+	            do {
+	                valor = random.nextInt(maximo - minimo + 1) + minimo;
+	                if (localizar(valor, 0)[0] == 0) {
+	                    valorUnico = true;
+	                }
+	            } while (!valorUnico);
+	        }
+	        dados[i] = valor;
+	    }
+	}
+	//1)B)
+	public void bubbleSort() {
+        int n = tamanho;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (dados[j] > dados[j + 1]) {
+                    int temp = dados[j];
+                    dados[j] = dados[j + 1];
+                    dados[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+	    public void insertionSort() {
+	        int n = tamanho;
+	        for (int i = 1; i < n; ++i) {
+	            int key = dados[i];
+	            int j = i - 1;
+	
+	            while (j >= 0 && dados[j] > key) {
+	                dados[j + 1] = dados[j];
+	                j = j - 1;
+	            }
+	            dados[j + 1] = key;
+	        }
+	    }
+	
+	    public void selectionSort() {
+	        int n = tamanho;
+	
+	        for (int i = 0; i < n - 1; i++) {
+	            int minIndex = i;
+	            for (int j = i + 1; j < n; j++) {
+	                if (dados[j] < dados[minIndex]) {
+	                    minIndex = j;
+	                }
+	            }
+	            int temp = dados[minIndex];
+	            dados[minIndex] = dados[i];
+	            dados[i] = temp;
+	        }
+	    }
+	
+	    public void quickSort(int menor, int maior) {
+	        if (menor < maior) {
+	            int pi = partition(menor, maior);
+	            quickSort(menor, pi - 1);
+	            quickSort(pi + 1, maior);
+	        }
+	    }
+	
+	    private int partition(int menor, int maior) {
+	        int pivot = dados[maior];
+	        int i = (menor - 1);
+	        for (int j = menor; j < maior; j++) {
+	            if (dados[j] < pivot) {
+	                i++;
+	                int temp = dados[i];
+	                dados[i] = dados[j];
+	                dados[j] = temp;
+	            }
+	        }
+	        int temp = dados[i + 1];
+	        dados[i + 1] = dados[maior];
+	        dados[maior] = temp;
+	        return i + 1;
+	    }
+	//1) C)
+		public int buscaBinaria(int chave) {
+	    int esquerda = 0;
+	    int direita = tamanho - 1;
+	
+	    while (esquerda <= direita) {
+	        int meio = esquerda + (direita - esquerda) / 2;
+	
+	        if (dados[meio] == chave)
+	            return meio;
+	
+	        if (dados[meio] < chave)
+	            esquerda = meio + 1;
+	        else
+	            direita = meio - 1;
+	    }
+	
+	    return -1;
 	}
 
 }
